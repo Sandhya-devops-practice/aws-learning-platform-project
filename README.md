@@ -5,9 +5,9 @@ This project demonstrates the deployment of a highly available web infrastructur
 
 The solution uses:
 
-Amazon VPC for network isolation
-Multi-AZ deployment for high availability
-Amazon EC2 instances as web servers
-Application Load Balancer (ALB) for traffic distribution
-Amazon EFS for shared storage
-Security Groups for controlled access
+* Amazon VPC for network isolation
+* Multi-AZ deployment for high availability
+* Amazon EC2 instances as web servers
+* Application Load Balancer (ALB) for traffic distribution
+* Amazon EFS for shared storage
+* Security Groups for controlled access
