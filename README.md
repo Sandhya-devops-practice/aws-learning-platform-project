@@ -4,7 +4,7 @@
 
 This project demonstrates the deployment of a highly available web infrastructure on AWS for an online learning platform. The architecture is designed to provide redundancy, centralized file sharing, and balanced traffic distribution across multiple Availability Zones.
 
-The solution leverages Amazon VPC, EC2, Application Load Balancer (ALB), and Amazon Elastic File System (EFS) to ensure high availability, fault tolerance, and shared storage access across web servers.
+The solution leverages Amazon VPC, Amazon EC2, Application Load Balancer (ALB), and Amazon Elastic File System (EFS) to ensure high availability, fault tolerance, and shared storage access across web servers.
 
 ---
 
@@ -29,25 +29,25 @@ The solution leverages Amazon VPC, EC2, Application Load Balancer (ALB), and Ama
 
 Before deployment, ensure you have:
 
-- AWS Account
-- IAM User with appropriate permissions
-- EC2 Key Pair
-- Basic Linux knowledge
-- Internet access
+* AWS Account
+* IAM User with appropriate permissions
+* EC2 Key Pair
+* Basic Linux knowledge
+* Internet access
 
 ---
 
 # 🛠️ Infrastructure Components
 
-| Service | Purpose |
-|----------|----------|
-| Amazon VPC | Network Isolation |
-| Public Subnets | Host Public Resources |
-| EC2 Instances | Web Servers |
-| Application Load Balancer | Traffic Distribution |
-| Amazon EFS | Shared Storage |
-| Security Groups | Traffic Control |
-| Internet Gateway | Internet Connectivity |
+| Service                   | Purpose               |
+| ------------------------- | --------------------- |
+| Amazon VPC                | Network Isolation     |
+| Public Subnets            | Host Public Resources |
+| EC2 Instances             | Web Servers           |
+| Application Load Balancer | Traffic Distribution  |
+| Amazon EFS                | Shared Storage        |
+| Security Groups           | Traffic Control       |
+| Internet Gateway          | Internet Connectivity |
 
 ---
 
@@ -55,17 +55,17 @@ Before deployment, ensure you have:
 
 ## VPC Configuration
 
-| Resource | Value |
-|-----------|---------|
-| VPC Name | LearnVPC |
+| Resource   | Value       |
+| ---------- | ----------- |
+| VPC Name   | LearnVPC    |
 | CIDR Block | 10.0.0.0/16 |
 
 ## Public Subnets
 
-| Subnet | Availability Zone | CIDR |
-|----------|------------------|---------|
-| Public-1 | AZ-1 | 10.0.1.0/24 |
-| Public-2 | AZ-2 | 10.0.2.0/24 |
+| Subnet   | Availability Zone | CIDR        |
+| -------- | ----------------- | ----------- |
+| Public-1 | AZ-1              | 10.0.1.0/24 |
+| Public-2 | AZ-2              | 10.0.2.0/24 |
 
 ## Internet Gateway
 
@@ -85,13 +85,13 @@ Configured with:
 
 ![VPC](screenshots/VPC.jpg)
 
-![Public Subnets](screenshots/Public subnets.jpg)
+![Public Subnets](screenshots/Public%20subnets.jpg)
 
 #### VPC Resource Map
 
 ![VPC Resource Map](screenshots/VPC%20Resource%20Map.png)
 
-#### Route Table
+#### Route Table with Internet Gateway
 
 ![Route Table](screenshots/RT%20with%20IGW.png)
 
@@ -105,10 +105,10 @@ Configured with:
 
 Two EC2 instances were launched in separate public subnets.
 
-| Instance Name | Purpose |
-|---------------|----------|
-| course-app1 | Web Server |
-| course-app2 | Web Server |
+| Instance Name | Purpose    |
+| ------------- | ---------- |
+| course-app1   | Web Server |
+| course-app2   | Web Server |
 
 ## User Data Script - course-app1
 
@@ -156,18 +156,18 @@ An internet-facing Application Load Balancer was created to distribute traffic a
 
 ## ALB Configuration
 
-| Setting | Value |
-|----------|---------|
-| Type | Application Load Balancer |
-| Scheme | Internet Facing |
-| Listener | HTTP : 80 |
+| Setting  | Value                     |
+| -------- | ------------------------- |
+| Type     | Application Load Balancer |
+| Scheme   | Internet Facing           |
+| Listener | HTTP : 80                 |
 
 ## Target Group
 
 Registered Targets:
 
-- course-app1
-- course-app2
+* course-app1
+* course-app2
 
 ## Health Check
 
@@ -179,10 +179,10 @@ Registered Targets:
 
 Weighted routing was configured:
 
-| Instance | Weight |
-|------------|-----------|
-| course-app1 | 60 |
-| course-app2 | 40 |
+| Instance    | Weight |
+| ----------- | ------ |
+| course-app1 | 60     |
+| course-app2 | 40     |
 
 ### Screenshots
 
@@ -210,9 +210,9 @@ Amazon Elastic File System (EFS) was created to provide centralized shared stora
 
 ## EFS Configuration
 
-- File System Created
-- Mount Targets Created in Both Availability Zones
-- NFS Protocol Used
+* File System Created
+* Mount Targets Created in Both Availability Zones
+* NFS Protocol Used
 
 ## Install NFS Utilities
 
@@ -279,18 +279,19 @@ This confirms that both EC2 instances are successfully accessing the same shared
 ## EC2 Security Group
 
 | Type | Port |
-|--------|--------|
-| SSH | 22 |
-| HTTP | 80 |
+| ---- | ---- |
+| SSH  | 22   |
+| HTTP | 80   |
 
 ## EFS Security Group
 
 | Type | Port |
-|--------|--------|
-| NFS | 2049 |
+| ---- | ---- |
+| NFS  | 2049 |
 
 Allowed Source:
-- EC2 Security Group
+
+* EC2 Security Group
 
 ---
 
@@ -298,34 +299,38 @@ Allowed Source:
 
 ### Validation Checklist
 
-- ✅ LearnVPC created successfully
-- ✅ Public subnets created across multiple Availability Zones
-- ✅ Internet Gateway attached
-- ✅ Route tables configured
-- ✅ Security Groups configured
-- ✅ EC2 instances launched successfully
-- ✅ Apache installed through User Data
-- ✅ ALB configured successfully
-- ✅ Target Group healthy
-- ✅ Website accessible through ALB DNS
-- ✅ EFS created successfully
-- ✅ EFS mounted on both EC2 instances
-- ✅ Shared file accessible from both servers
+* ✅ LearnVPC created successfully
+* ✅ Public subnets created across multiple Availability Zones
+* ✅ Internet Gateway attached
+* ✅ Route tables configured
+* ✅ Security Groups configured
+* ✅ EC2 instances launched successfully
+* ✅ Apache installed through User Data
+* ✅ ALB configured successfully
+* ✅ Target Group healthy
+* ✅ Website accessible through ALB DNS
+* ✅ EFS created successfully
+* ✅ EFS mounted on both EC2 instances
+* ✅ Shared file accessible from both servers
 
 ---
 
 # ⚠️ Challenges Faced
 
 ### 1. EFS Mount Configuration
+
 I initially couldn't access the EFS mount from my EC2 instances because the NFS port wasn't configured correctly in the security group.
 
 ### 2. Target Group Health Check Failures
+
 Instances initially showed unhealthy status. Fixed by ensuring Apache service was running and the health check path was accessible.
 
 ### 3. Multi-AZ Deployment Validation
+
 Verified that EC2 instances were deployed in separate Availability Zones to ensure high availability.
 
 ### 4. Shared Storage Testing
+
 Validated EFS functionality by creating files on one instance and accessing them from another instance.
 
 ---
@@ -334,26 +339,26 @@ Validated EFS functionality by creating files on one instance and accessing them
 
 Through this project, I gained hands-on experience with:
 
-- Amazon VPC Networking
-- Multi-AZ Architecture
-- EC2 Deployment
-- Apache Web Server Configuration
-- Application Load Balancer Setup
-- Amazon EFS Shared Storage
-- High Availability Design
-- AWS Troubleshooting and Validation
+* Amazon VPC Networking
+* Multi-AZ Architecture
+* EC2 Deployment
+* Apache Web Server Configuration
+* Application Load Balancer Setup
+* Amazon EFS Shared Storage
+* High Availability Design
+* AWS Troubleshooting and Validation
 
 ---
 
 # 🎯 AWS Services Used
 
-- Amazon VPC
-- Amazon EC2
-- Application Load Balancer (ALB)
-- Amazon Elastic File System (EFS)
-- Security Groups
-- Route Tables
-- Internet Gateway
+* Amazon VPC
+* Amazon EC2
+* Application Load Balancer (ALB)
+* Amazon Elastic File System (EFS)
+* Security Groups
+* Route Tables
+* Internet Gateway
 
 ---
 
