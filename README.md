@@ -315,7 +315,7 @@ Allowed Source:
 # ⚠️ Challenges Faced
 
 ### 1. EFS Mount Configuration
-Initially faced issues while mounting EFS. Resolved by configuring NFS port (2049) correctly in the EFS Security Group.
+I initially couldn't access the EFS mount from my EC2 instances because the NFS port wasn't configured correctly in the security group.
 
 ### 2. Target Group Health Check Failures
 Instances initially showed unhealthy status. Fixed by ensuring Apache service was running and the health check path was accessible.
