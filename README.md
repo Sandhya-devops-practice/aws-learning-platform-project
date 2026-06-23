@@ -85,6 +85,8 @@ Configured with:
 
 ![VPC](screenshots/VPC.jpg)
 
+![Public Subnets](screenshots/Public subnets.jpg)
+
 #### VPC Resource Map
 
 ![VPC Resource Map](screenshots/VPC%20Resource%20Map.png)
